@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { PasswordManagerService } from '../password-manager.service';
 
 @Component({
   selector: 'comp-navbar',
@@ -6,5 +7,11 @@ import { Component } from '@angular/core';
   styleUrls: ['./navbar.component.css']
 })
 export class NavbarComponent {
+
+  constructor(private passwordService: PasswordManagerService){}
+
+  onlogout(){
+    this.passwordService.logout();
+  }
 
 }

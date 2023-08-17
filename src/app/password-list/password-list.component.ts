@@ -55,7 +55,6 @@ export class PasswordListComponent {
   }
 
   onSubmit(values: any) {
-
     const encryptedPassword = this.encryptPassword(values.password);
     values.password = encryptedPassword;
 

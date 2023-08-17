@@ -19,7 +19,7 @@ import { FormsModule } from '@angular/forms';
     NavbarComponent,
     SiteListComponent,
     PasswordListComponent,
-    LoginComponent
+    LoginComponent,
   ],
   imports: [
     BrowserModule,

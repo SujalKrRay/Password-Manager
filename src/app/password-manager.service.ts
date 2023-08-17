@@ -1,12 +1,13 @@
 import { Injectable } from '@angular/core';
-import { Auth, signInWithEmailAndPassword } from '@angular/fire/auth';
+import { Auth, getAuth, signInWithEmailAndPassword, signOut } from '@angular/fire/auth';
 import { Firestore, addDoc, collection, collectionData, deleteDoc, doc, updateDoc } from '@angular/fire/firestore';
+import { Router } from '@angular/router';
 
 @Injectable({
   providedIn: 'root',
 })
 export class PasswordManagerService {
-  constructor(private fireStore: Firestore, private auth: Auth) {}
+  constructor(private fireStore: Firestore, private auth: Auth, private router: Router) {}
 
   //site queries
   addSite(data: Object) {
@@ -54,4 +55,12 @@ export class PasswordManagerService {
   login(email:string, password:string) {
     return signInWithEmailAndPassword(this.auth, email, password);
   }
+
+  logout(){
+    const auth = getAuth();
+    signOut(auth).then(() => {
+      this.router.navigate(['/']);
+    });
+  }
+
 }
