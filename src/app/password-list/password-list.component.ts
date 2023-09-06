@@ -81,6 +81,10 @@ export class PasswordListComponent {
     }
   }
 
+  onCancel(){
+    this.resetForm();
+  }
+
   loadPassword() {
     this.passwordManagerService.loadPassword(this.siteId).subscribe(val => {
       this.passwordList = val;
@@ -127,4 +131,9 @@ export class PasswordListComponent {
     const decPassword = this.decryptPassword(password);
     this.passwordList[index].password = decPassword;
   }
+
+  // onEncrypt(password:string, index:number){
+  //   const encPassword = this.encryptPassword(password);
+  //   this.passwordList[index].password = encPassword; 
+  // }
 }

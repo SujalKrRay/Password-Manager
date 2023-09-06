@@ -11,7 +11,7 @@
    </div>
 
    <!-- Add New Site Form -->
-   <div class="px-20 py-10 mb-10 my-5 border-4 border-gray-900">
+   <div class="px-3 py-10 my-5 border-4 border-gray-900">
       <h2 class="text-3xl text-center">{{formState}} Site</h2>
       <p class="text-center">You can {{formState}} site from the below form</p>
       <!-- form -->
@@ -37,22 +37,24 @@
       </button>
    </div>
 
-   <div class="grid grid-cols-4 gap-5">
-      <div *ngFor="let site of allSites | async" class="shadow-lg border-2 border-gray-900">
-         <img [src]="site.siteImgURL" alt="">
+   <div class="flex flex-wrap mt-10">
+      <div *ngFor="let site of allSites | async" class="shadow-lg border-2 border-gray-900 w-[19rem] mx-1 my-1">
+         <img [src]="site.siteImgURL" alt="" class="h-44 w-full">
          <h3 class="p-3 text-xl font-bold">{{ site.siteName }}</h3>
-         <div class="w-72 m-3 px-1 bg-blue-200 text-blue-800 rounded-lg text-sm">
+         <p class="m-3 px-1 bg-blue-200 text-blue-800 rounded-lg text-sm w-[17rem]">
             {{ site.siteURL }}
+         </p>
+         <div class="flex flex-wrap m-2">
+            <button routerLink="/password-list" [queryParams]="{ id:site.id, siteName:site.siteName, siteURL:site.siteURL, siteImgURL:site.siteImgURL }" class="px-4 py-2 text-sm bg-gray-900 text-white shadow rounded-md">
+               Add New Password
+            </button>
+            <button (click)="editSite(site.siteName, site.siteURL, site.siteImgURL, site.id)" class="ml-1 px-3.5 py-1.5 text-sm border-2 border-gray-900 text-gray-900 shadow rounded-md">
+               Edit
+            </button>
+            <button (click)="deleteSite(site.id)" class="ml-1 px-3.5 py-1.5 text-sm border-2 border-gray-900 text-gray-900 shadow rounded-md">
+               Delete
+            </button>
          </div>
-         <button routerLink="/password-list" [queryParams]="{ id:site.id, siteName:site.siteName, siteURL:site.siteURL, siteImgURL:site.siteImgURL }" class="my-3 ml-2.5 mx-0.5 px-4 py-2 text-sm bg-gray-900 text-white shadow rounded-md">
-            Add New Password
-         </button>
-         <button (click)="editSite(site.siteName, site.siteURL, site.siteImgURL, site.id)" class="my-3 mx-0.5 px-3.5 py-1.5 text-sm border-2 border-gray-900 text-gray-900 shadow rounded-md">
-            Edit
-         </button>
-         <button (click)="deleteSite(site.id)" class="my-3 mx-0.5 px-3.5 py-1.5 text-sm border-2 border-gray-900 text-gray-900 shadow rounded-md">
-            Delete
-         </button>
       </div>
    </div>
 </div>
