@@ -11,7 +11,7 @@ const routes: Routes = [
   {
     path: 'password-list',
     component: PasswordListComponent,
-    canActivate: [authGuard],
+    canActivate: [authGuard]
   },
 ];
 

@@ -27,6 +27,8 @@ export class PasswordListComponent {
   isSuccess: boolean = false;
   successMessage!: string;
 
+  isDecrypted: boolean = true;
+
   constructor(
     private route: ActivatedRoute,
     private passwordManagerService: PasswordManagerService
@@ -130,10 +132,12 @@ export class PasswordListComponent {
   onDecrypt(password:string, index:number) {
     const decPassword = this.decryptPassword(password);
     this.passwordList[index].password = decPassword;
+    this.isDecrypted = false;
   }
 
-  // onEncrypt(password:string, index:number){
-  //   const encPassword = this.encryptPassword(password);
-  //   this.passwordList[index].password = encPassword; 
-  // }
+  onEncrypt(password:string, index:number){
+    const encPassword = this.encryptPassword(password);
+    this.passwordList[index].password = encPassword; 
+    this.isDecrypted = true;
+  }
 }

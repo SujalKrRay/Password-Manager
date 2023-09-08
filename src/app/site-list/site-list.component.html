@@ -1,17 +1,17 @@
 <comp-navbar></comp-navbar>
 <div class="container mx-auto mt-5 mb-10">
-   <h1 class="text-5xl mt-0 mb-3">Password Manager</h1>
-   <p class="mb-5">
+   <h1 class="text-5xl mx-2 mt-0 mb-3">Password Manager</h1>
+   <p class="mx-3 mb-5">
       Lorem ipsum dolor sit, amet consectetur adipisicing elit. Esse, maxime modi corrupti similique earum deleniti incidunt ratione mollitia nisi autem voluptatibus labore unde perspiciatis sit debitis doloribus deserunt velit dicta!
    </p>
 
    <!-- alert -->
-   <div *ngIf="isSuccess" class="p-5 my-3 bg-teal-100 text-teal-900 rounded">
+   <div *ngIf="isSuccess" class="mx-3 p-5 my-3 bg-teal-100 text-teal-900 rounded">
       {{ successMessage }}
    </div>
 
    <!-- Add New Site Form -->
-   <div class="px-3 py-10 my-5 border-4 border-gray-900">
+   <div class="m-1 px-3 py-10 my-5 border-4 border-gray-900">
       <h2 class="text-3xl text-center">{{formState}} Site</h2>
       <p class="text-center">You can {{formState}} site from the below form</p>
       <!-- form -->
@@ -32,7 +32,7 @@
             {{formState}} Site
          </button>
       </form>
-      <button class="px-5 py-3 text-sm border-2 bg-gray-900 text-white shadow rounded-md" (click)="onCancel()">
+      <button class="mx-1 mt-2 px-5 py-3 text-sm border-2 border-gray-900 text-gray-900 shadow rounded-md" (click)="onCancel()">
          Cancel
       </button>
    </div>
@@ -41,9 +41,9 @@
       <div *ngFor="let site of allSites | async" class="shadow-lg border-2 border-gray-900 w-[19rem] mx-1 my-1">
          <img [src]="site.siteImgURL" alt="" class="h-44 w-full">
          <h3 class="p-3 text-xl font-bold">{{ site.siteName }}</h3>
-         <p class="m-3 px-1 bg-blue-200 text-blue-800 rounded-lg text-sm w-[17rem]">
-            {{ site.siteURL }}
-         </p>
+         <div class="m-3 px-1 bg-blue-200 text-blue-800 rounded-lg text-sm w-[17rem]">
+            <a [href]="site.siteURL" target="_blank" >{{ site.siteURL }}</a>  
+         </div>
          <div class="flex flex-wrap m-2">
             <button routerLink="/password-list" [queryParams]="{ id:site.id, siteName:site.siteName, siteURL:site.siteURL, siteImgURL:site.siteImgURL }" class="px-4 py-2 text-sm bg-gray-900 text-white shadow rounded-md">
                Add New Password

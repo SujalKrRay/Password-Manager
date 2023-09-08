@@ -28,12 +28,21 @@ export class SiteListComponent {
     this.successMessage = message;
   }
 
+  resetForm(){
+    this.siteName = '';
+    this.siteURL = '';
+    this.siteImgURL = '';
+    this.siteId = '';
+    this.formState = 'Add New';
+  }
+
   onSubmit(values: object) {
     if (this.formState == 'Add New') {
       this.passwordManagerService
         .addSite(values)
         .then(() => {
           this.showAlert('Data Saved Successfully.');
+          this.resetForm();
         })
         .catch((err) => {
           console.log(err);
@@ -43,6 +52,7 @@ export class SiteListComponent {
         .updateSite(this.siteId, values)
         .then(() => {
           this.showAlert('Data Edited Successfully.');
+          this.resetForm();
         })
         .catch((err) => {
           console.log(err);
@@ -74,9 +84,6 @@ export class SiteListComponent {
   }
 
   onCancel() {
-    this.siteName = '';
-    this.siteURL = '';
-    this.siteImgURL = '';
-    this.siteId = '';
+    this.resetForm();
   }
 }
