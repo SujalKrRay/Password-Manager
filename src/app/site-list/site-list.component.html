@@ -41,7 +41,7 @@
       <div *ngFor="let site of allSites | async" class="shadow-lg border-2 border-gray-900 w-[19rem] mx-1 my-1">
          <img [src]="site.siteImgURL" alt="" class="h-44 w-full">
          <h3 class="p-3 text-xl font-bold">{{ site.siteName }}</h3>
-         <div class="m-3 px-1 bg-blue-200 text-blue-800 rounded-lg text-sm">
+         <div class="m-3 px-1 bg-blue-200 text-blue-800 break-words rounded-lg text-sm">
             <a [href]="site.siteURL" target="_blank" >{{ site.siteURL }}</a>  
          </div>
          <div class="flex flex-wrap m-2">
