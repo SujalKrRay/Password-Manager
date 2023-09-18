@@ -3,6 +3,7 @@ import { ActivatedRoute } from '@angular/router';
 import { PasswordManagerService } from '../password-manager.service';
 import { Observable } from 'rxjs';
 import { AES, enc } from 'crypto-js';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'comp-password-list',
@@ -24,14 +25,12 @@ export class PasswordListComponent {
 
   formState: string = 'Add New';
 
-  isSuccess: boolean = false;
-  successMessage!: string;
-
   isDecrypted: boolean = true;
 
   constructor(
     private route: ActivatedRoute,
-    private passwordManagerService: PasswordManagerService
+    private passwordManagerService: PasswordManagerService,
+    private toastr: ToastrService
   ) {
     this.route.queryParams.subscribe((val: any) => {
       this.siteId = val.id;
@@ -39,7 +38,6 @@ export class PasswordListComponent {
       this.siteURL = val.siteURL;
       this.siteImgURL = val.siteImgURL;
     });
-
     this.loadPassword();
   }
 
@@ -51,11 +49,6 @@ export class PasswordListComponent {
     this.formState = 'Add new';
   }
 
-  showAlert(message: string) {
-    this.isSuccess = true;
-    this.successMessage = message;
-  }
-
   onSubmit(values: any) {
     const encryptedPassword = this.encryptPassword(values.password);
     values.password = encryptedPassword;
@@ -64,21 +57,21 @@ export class PasswordListComponent {
       this.passwordManagerService
         .addPassword(values, this.siteId)
         .then(() => {
-          this.showAlert('Password Saved Successfully.');
+          this.toastr.success('Password saved successfully !');
           this.resetForm();
         })
-        .catch((err) => {
-          console.log(err);
+        .catch(() => {
+          this.toastr.warning('Please try again','Something went wrong !');
         });
     } else if (this.formState == 'Edit') {
       this.passwordManagerService
         .updatePassword(values, this.siteId, this.passwordId)
         .then(() => {
-          this.showAlert('Password Updated Successfully.');
+          this.toastr.info('Password updated successfully !');
           this.resetForm();
         })
-        .catch((err) => {
-          console.log(err);
+        .catch(() => {
+          this.toastr.warning('Please try again', 'Something went wrong !');
         });
     }
   }
@@ -110,10 +103,10 @@ export class PasswordListComponent {
     this.passwordManagerService
       .deletePassword(this.siteId, passwordId)
       .then(() => {
-        this.showAlert('Password Deleted Successfully.');
+        this.toastr.error('Password deleted successfully !');
       })
-      .catch((err) => {
-        console.log(err);
+      .catch(() => {
+        this.toastr.warning('Please try again', 'Something went wrong !');
       });
   }
 

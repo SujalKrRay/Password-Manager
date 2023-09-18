@@ -11,11 +11,6 @@
                Login to your account
             </h1>
 
-            <!-- alert -->
-            <div *ngIf="isError" class="p-3 my-3 bg-red-100 text-red-900 rounded">
-               Email or Password is incorrect.
-            </div>
-
             <!-- form -->
             <form #lform="ngForm" class="space-y-6" (ngSubmit)="onSubmit(lform.value)">
                <div>

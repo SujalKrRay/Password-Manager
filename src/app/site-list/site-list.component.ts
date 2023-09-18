@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { PasswordManagerService } from '../password-manager.service';
 import { Observable } from 'rxjs';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'comp-site-list',
@@ -16,16 +17,8 @@ export class SiteListComponent {
 
   formState: string = 'Add New';
 
-  isSuccess: boolean = false;
-  successMessage!: string;
-
-  constructor(private passwordManagerService: PasswordManagerService) {
+  constructor(private passwordManagerService: PasswordManagerService, private toastr: ToastrService) {
     this.loadSites();
-  }
-
-  showAlert(message: string) {
-    this.isSuccess = true;
-    this.successMessage = message;
   }
 
   resetForm(){
@@ -41,21 +34,21 @@ export class SiteListComponent {
       this.passwordManagerService
         .addSite(values)
         .then(() => {
-          this.showAlert('Data Saved Successfully.');
+          this.toastr.success('Website added successfully !');
           this.resetForm();
         })
-        .catch((err) => {
-          console.log(err);
+        .catch(() => {
+          this.toastr.warning('Please try again','Something went wrong !')
         });
     } else if (this.formState == 'Edit') {
       this.passwordManagerService
         .updateSite(this.siteId, values)
         .then(() => {
-          this.showAlert('Data Edited Successfully.');
+          this.toastr.info('Website edited successfully !');
           this.resetForm();
         })
-        .catch((err) => {
-          console.log(err);
+        .catch(() => {
+          this.toastr.warning('Please try again', 'Something went wrong !');
         });
     }
   }
@@ -76,10 +69,11 @@ export class SiteListComponent {
     this.passwordManagerService
       .deleteSite(id)
       .then(() => {
-        this.showAlert('Data Deleted Successfully.');
+        this.toastr.error('Website deleted successfully !');
+
       })
-      .catch((err) => {
-        console.log(err);
+      .catch(() => {
+          this.toastr.warning('Please try again', 'Something went wrong !');
       });
   }
 
